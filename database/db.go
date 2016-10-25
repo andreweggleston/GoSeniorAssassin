@@ -8,7 +8,7 @@ import (
 	"github.com/jinzhu/gorm"
 	_ "github.com/lib/pq"
 
-	"github.com/drewwww/owbackend/config"
+	"github.com/andreweggleston/GoSeniorAssassin/config"
 )
 
 var (
@@ -29,7 +29,7 @@ func Init() {
 
 	DBUrl = url.URL{
 		Scheme:	"postgres",
-		Host:	config.Constants.DbAddr,
+		Host:	config.Constants.DbAdr,
 		Path:	config.Constants.DbDatabase,
 		RawQuery: "sslmode=disable",
 	}
