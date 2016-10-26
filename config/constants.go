@@ -1,7 +1,6 @@
 package config
 
 import (
-	"net/url"
 	"os"
 	"reflect"
 	"text/template"
