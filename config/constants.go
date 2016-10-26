@@ -19,12 +19,15 @@ var (
 
 type constants struct {
 	ListenAddress	string	`envconfig:"SA_SERVER_ADDR" default:"0.0.0.0:8081" doc:"Address to serve on"`
+	PublicAddress   string   `envconfig:"PUBLIC_ADDR" doc:"Publicly accessible address for the server, requires schema"`
 	RabbitMQURL     string  `envconfig:"RABBITMQ_URL" default:"amqp://guest:guest@localhost:5672/" doc:"URL for AMQP server"`
 
 	DbAddr		string	`envconfig:"DATABASE_ADDR" default:"127.0.0.1:5432" doc:"Database Address"`
 	DbDatabase	string 	`envconfig:"DATABASE_NAME" default:"seniorassassin" doc:"Database Name"`
 	DbUsername	string 	`envconfig:"DATABASE_USERNAME" default:"seniorassassin" doc:"Database Username"`
 	DbPassword 	string 	`envconfig:"DATABASE_PASSWORD" default:"assassinpass" doc:"Database password"`
+
+	CookieStoreSecret string   `envconfig:"COOKIE_STORE_SECRET" default:"secret" doc:"base64 encoded key to use for encrypting cookies"`
 }
 
 var Constants = constants{}
