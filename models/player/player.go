@@ -8,7 +8,7 @@ import (
 	"time"
 	"github.com/jinzhu/gorm/dialects/postgres"
 	db "github.com/drewwww/SeniorAssassin/database"
-	"github.com/andreweggleston/GoSeniorAssassin/controllers/helpers/authority"
+	"github.com/andreweggleston/GoSeniorAssassin/helpers/authority"
 )
 
 var ErrPlayerNotFound = errors.New("Player not found")
@@ -16,6 +16,7 @@ var ErrPlayerInReportedSlot = errors.New("Player in reported slot")
 
 type Player struct {
 	ID			uint		`gorm:"primary_key" json:"id"`
+	Name			string		`json:"name"`
 	CreatedAt            	time.Time 	`json:"createdAt"`
 	ProfileUpdatedAt      	time.Time 	`json:"-"`
 	StreamStatusUpdatedAt 	time.Time 	`json:"-"`
@@ -23,6 +24,14 @@ type Player struct {
 	Settings postgres.Hstore `json:"-"`
 
 	Role       authority.AuthRole `sql:"default:0" json:"-"`
+
+	JSONFields
+}
+
+type JSONFields struct {
+	PlaceholderTags          *[]string `sql:"-" json:"tags"`
+	PlaceholderRoleStr       *string   `sql:"-" json:"role"`
+	PlaceholderBans  []*PlayerBan `sql:"-" json:"bans"`
 }
 
 func NewPlayer(Id string) (*Player, error) {
@@ -49,6 +58,15 @@ func isClean(s string) bool {
 	return true
 }
 
+func (p *Player) Alias() string {
+	alias := p.GetSetting("siteAlias")
+	if alias == "" {
+		return p.Name
+	}
+
+	return alias
+}
+
 func (player *Player) Save() error {
 	var err error
 	if db.DB.NewRecord(player) {
@@ -67,6 +85,27 @@ func GetPlayerByID(ID uint) (*Player, error) {
 	}
 
 	return player, nil
+}
+
+func (player *Player) GetSetting(key string) string {
+	if player.Settings == nil {
+		return ""
+	}
+
+	value, ok := player.Settings[key]
+	if !ok {
+		return ""
+	}
+
+	return *value
+}
+func (player *Player) SetSetting(key string, value string) {
+	if player.Settings == nil {
+		player.Settings = make(postgres.Hstore)
+	}
+
+	player.Settings[key] = &value
+	player.Save()
 }
 
 func (player *Player) UpdatePlayerInfo() error {

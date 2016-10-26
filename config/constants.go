@@ -28,6 +28,10 @@ type constants struct {
 	DbPassword 	string 	`envconfig:"DATABASE_PASSWORD" default:"assassinpass" doc:"Database password"`
 
 	CookieStoreSecret string   `envconfig:"COOKIE_STORE_SECRET" default:"secret" doc:"base64 encoded key to use for encrypting cookies"`
+
+	SlackbotURL       string   `envconfig:"SLACK_URL" doc:"Slack webhook URL"`
+
+	IDWhitelist  string   `envconfig:"ID_WHITELIST" doc:"ID Group XML page to use to filter logins"`
 }
 
 var Constants = constants{}

@@ -3,7 +3,7 @@ package broadcaster
 import (
 	"github.com/TF2Stadium/wsevent"
 	"github.com/andreweggleston/GoSeniorAssassin/controllers/socket/sessions"
-	"github.com/andreweggleston/GoSeniorAssassin/controllers/helpers"
+	"github.com/andreweggleston/GoSeniorAssassin/helpers"
 	"github.com/andreweggleston/GoSeniorAssassin/routes/socket"
 )
 
