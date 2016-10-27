@@ -1,4 +1,4 @@
-package GoSeniorAssassin
+package main
 
 import (
 	"flag"

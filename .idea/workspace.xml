@@ -1,37 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="142ab25c-b951-4d7e-a91a-cf9b9a7d8e71" name="Default" comment="finishing up (what a fucking day my dudes)">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build.bash" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/build_assets.bash" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/controllers/admin/ban.go" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/controllers/admin/chatlogs.go" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/controllers/admin/dir.go" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/controllers/admin/roles.go" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/controllers/admin/templates.go" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/controllers/static.go" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/controllers/template.go" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/database/db_test.go" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/database/migrations/changes.go" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/database/migrations/migrations.go" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/database/migrations/routines.go" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/internal/testhelpers/controller.go" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/internal/testhelpers/dbhelpers.go" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/internal/version/version.go" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/main.go" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/models/admin_log.go" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/models/admin_log_test.go" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/models/player/player_report.go" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/admin/index.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/admin/templates/ban_logs.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/admin/templates/chatlogs.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/admin/templates/lobbies.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/admin/templates/server.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/index.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/static.html" />
+    <list default="true" id="142ab25c-b951-4d7e-a91a-cf9b9a7d8e71" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/constants.go" afterPath="$PROJECT_DIR$/config/constants.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/http.go" afterPath="$PROJECT_DIR$/routes/http.go" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.go" afterPath="$PROJECT_DIR$/main.go" />
     </list>
     <ignored path="SeniorAssassin.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -95,7 +67,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="lobbies.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="lobbies.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/admin/templates/lobbies.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="242">
@@ -145,13 +117,13 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.go" pinned="false" current-in-tab="false">
+      <file leaf-file-name="main.go" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="636">
-              <caret line="100" column="0" selection-start-line="100" selection-start-column="0" selection-end-line="100" selection-end-column="0" />
+            <state relative-caret-position="238">
+              <caret line="41" column="0" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
               <folding>
-                <element signature="e#26#873#0" expanded="true" />
+                <element signature="e#14#861#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -226,8 +198,8 @@
         <option value="$PROJECT_DIR$/views/index.html" />
         <option value="$PROJECT_DIR$/models/event/event.go" />
         <option value="$PROJECT_DIR$/config/constants.go" />
-        <option value="$PROJECT_DIR$/main.go" />
         <option value="$PROJECT_DIR$/database/migrations/routines.go" />
+        <option value="$PROJECT_DIR$/main.go" />
       </list>
     </option>
   </component>
@@ -654,12 +626,19 @@
       <option name="project" value="LOCAL" />
       <updated>1477520977408</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="finishing up (what a fucking day my dudes)">
+      <created>1477532102400</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1477532102400</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="1912" y="-8" width="1616" height="916" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1150,16 +1129,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="636">
-          <caret line="100" column="0" selection-start-line="100" selection-start-column="0" selection-end-line="100" selection-end-column="0" />
-          <folding>
-            <element signature="e#26#873#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/admin/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1181,6 +1150,16 @@
         <state relative-caret-position="242">
           <caret line="19" column="72" selection-start-line="19" selection-start-column="72" selection-end-line="19" selection-end-column="72" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="41" column="0" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+          <folding>
+            <element signature="e#14#861#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
