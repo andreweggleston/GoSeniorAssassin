@@ -3,7 +3,7 @@
 
 package helpers
 
-import "github.com/TF2Stadium/Helen/helpers/authority"
+import "github.com/andreweggleston/GoSeniorAssassin/helpers/authority"
 
 // DO NOT CHANGE THE INTEGER VALUES OF ALREADY EXISTING ROLES.
 const (

@@ -2,7 +2,7 @@ package helpers
 
 import (
 	"github.com/Sirupsen/logrus"
-	"github.com/TF2Stadium/Helen/config"
+	"github.com/andreweggleston/GoSeniorAssassin/config"
 	"github.com/streadway/amqp"
 )
 

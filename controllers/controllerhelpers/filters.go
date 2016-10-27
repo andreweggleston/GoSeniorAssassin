@@ -61,7 +61,7 @@ func IsIDWhitelisted(id string) bool {
 }
 
 func CheckPrivilege(so *wsevent.Client, action authority.AuthAction) error {
-	player, _ := player.GetPlayerByID(so.Token.Claims["id"].(string))
+	player, _ := player.GetPlayerByID(so.Token.Claims["id"].(uint))
 	if !player.Role.Can(action) {
 		return errors.New("You are not authorized to perform this action")
 	}

@@ -13,6 +13,6 @@ func goroutines() interface{} {
 }
 
 func init() {
-	expvar.Publish("goroutines", expvar.Func(goroutines()))
+	expvar.Publish("goroutines", expvar.Func(goroutines))
 	expvar.Publish("clients", Clients)
 }

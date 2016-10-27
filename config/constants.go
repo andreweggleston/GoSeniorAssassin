@@ -20,7 +20,11 @@ var (
 type constants struct {
 	ListenAddress	string	`envconfig:"SA_SERVER_ADDR" default:"0.0.0.0:8081" doc:"Address to serve on"`
 	PublicAddress   string   `envconfig:"PUBLIC_ADDR" doc:"Publicly accessible address for the server, requires schema"`
+	OpenIDRealm       string   `envconfig:"SERVER_OPENID_REALM" default:"0.0.0.0:8081" doc:"The OpenID Realm (See: [Section 9.2 of the OpenID Spec](https://openid.net/specs/openid-authentication-2_0-12.html#realms))"`
 	AllowedOrigins    []string `envconfig:"ALLOWED_ORIGINS" default:"*"`
+
+	LoginRedirectPath string   `envconfig:"SERVER_REDIRECT_PATH" default:"0.0.0.0:8081/" doc:"URL to redirect user to after a successful login"`
+	//TODO: not :8081, make :8080 after frontend works
 
 	RabbitMQURL     string  `envconfig:"RABBITMQ_URL" default:"amqp://guest:guest@localhost:5672/" doc:"URL for AMQP server"`
 	RabbitMQQueue     string   `envconfig:"RABBITMQ_QUEUE" default:"events" doc:"Name of queue over which events are sent"`
@@ -32,6 +36,7 @@ type constants struct {
 	DbPassword 	string 	`envconfig:"DATABASE_PASSWORD" default:"assassinpass" doc:"Database password"`
 
 	CookieStoreSecret string   `envconfig:"COOKIE_STORE_SECRET" default:"secret" doc:"base64 encoded key to use for encrypting cookies"`
+	CookieDomain      string   `envconfig:"SERVER_COOKIE_DOMAIN" default:"" doc:"Cookie URL domain"`
 
 	SlackbotURL       string   `envconfig:"SLACK_URL" doc:"Slack webhook URL"`
 

@@ -5,7 +5,7 @@ import (
 	"github.com/andreweggleston/GoSeniorAssassin/models/player"
 	"github.com/andreweggleston/GoSeniorAssassin/controllers/socket/sessions"
 	"time"
-	"github.com/andreweggleston/GoSeniorAssassin/controllers/helpers"
+	"github.com/andreweggleston/GoSeniorAssassin/helpers"
 )
 
 func AfterConnect(server *wsevent.Server, so *wsevent.Client) {

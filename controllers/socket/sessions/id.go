@@ -4,7 +4,6 @@ import (
 	"sync"
 	"github.com/TF2Stadium/wsevent"
 	"time"
-	"github.com/TF2Stadium/PlayerStatsScraper/steamid"
 )
 
 var (

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-pkg=github.com/TF2Stadium/Helen/internal/version
+pkg=github.com/andreweggleston/GoSeniorAssassin/internal/version
 git_commit=$(git rev-parse HEAD)
 git_branch=$(git rev-parse --abbrev-ref HEAD)
 build_date=$(date)

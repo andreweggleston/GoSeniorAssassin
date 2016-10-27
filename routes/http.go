@@ -3,13 +3,15 @@ package routes
 import (
 	"net/http"
 	"github.com/andreweggleston/GoSeniorAssassin/controllers"
-	"github.com/TF2Stadium/Helen/controllers/login"
+	"github.com/andreweggleston/GoSeniorAssassin/controllers/login"
 	"github.com/andreweggleston/GoSeniorAssassin/helpers"
 	chelpers "github.com/andreweggleston/GoSeniorAssassin/controllers/controllerhelpers"
 	"github.com/andreweggleston/GoSeniorAssassin/controllers/admin"
 	"github.com/andreweggleston/GoSeniorAssassin/config"
 )
 
+
+//TODO: CREATE A MOCK LOGIN THAT DOESNT USE STEAM
 type route struct {
 	pattern string
 	handler http.HandlerFunc

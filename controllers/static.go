@@ -4,7 +4,7 @@ import (
 	"html/template"
 	"net/http"
 	"github.com/andreweggleston/GoSeniorAssassin/models/player"
-	"github.com/drewwww/owbackend/controllers/controllerhelpers"
+	"github.com/andreweggleston/GoSeniorAssassin/controllers/controllerhelpers"
 	"github.com/andreweggleston/GoSeniorAssassin/config"
 	"github.com/andreweggleston/GoSeniorAssassin/internal/version"
 	"fmt"

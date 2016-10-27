@@ -2,14 +2,13 @@ package chat
 
 import (
 	"fmt"
-	"strings"
 	"time"
 
 	"encoding/json"
-	"github.com/andreweggleston/GoSeniorAssassin/config"
 	"github.com/andreweggleston/GoSeniorAssassin/controllers/broadcaster"
 	db "github.com/andreweggleston/GoSeniorAssassin/database"
 	"github.com/andreweggleston/GoSeniorAssassin/models/player"
+	"strconv"
 )
 
 
@@ -84,7 +83,7 @@ func (m *ChatMessage) MarshalJSON() ([]byte, error) {
 		p := &player.Player{}
 		db.DB.First(p, m.PlayerID)
 		player := minPlayer{
-			ID: p.ID,
+			ID: strconv.Itoa(int(p.ID)),
 		}
 
 		if m.Deleted {

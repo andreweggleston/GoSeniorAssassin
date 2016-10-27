@@ -10,7 +10,7 @@ import (
 	"errors"
 	"github.com/andreweggleston/GoSeniorAssassin/models/chat"
 	"strings"
-	"github.com/drewwww/owbackend/helpers"
+	"github.com/andreweggleston/GoSeniorAssassin/helpers"
 )
 
 type Chat struct{}
