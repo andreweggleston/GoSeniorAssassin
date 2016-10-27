@@ -22,6 +22,11 @@ var httpRoutes = []route{
 	{"/websocket/", controllers.SocketHandler},
 	{"/startMockLogin", login.SteamMockLoginHandler},
 
+	{"/login", login.GoogleLoginHandler},
+	{"/auth", login.GoogleAuthHandler},
+	{"/logout", login.GoogleLogoutHandler},
+
+
 	{"/admin", chelpers.FilterHTTPRequest(helpers.ActionViewPage, admin.ServeAdminPage)},
 	{"/admin/roles", chelpers.FilterHTTPRequest(helpers.ActionViewPage, admin.ChangeRole)},
 	{"/admin/ban", chelpers.FilterHTTPRequest(helpers.ActionViewPage, admin.BanPlayer)},

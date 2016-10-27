@@ -29,13 +29,13 @@ func SteamLoginHandler(w http.ResponseWriter, r *http.Request) {
 		redirecturl.RawQuery = values.Encode()
 	}
 
-	if url, err := openid.RedirectURL("http://steamcommunity.com/openid",
-		redirecturl.String(),
-		config.Constants.OpenIDRealm); err == nil {
-		http.Redirect(w, r, url, 303)
-	} else {
-		logrus.Error(err)
-	}
+	//if url, err := openid.RedirectURL("http://steamcommunity.com/openid",
+	//	redirecturl.String(),
+	//	config.Constants.OpenIDRealm); err == nil {
+	//	http.Redirect(w, r, url, 303)
+	//} else {
+	//	logrus.Error(err)
+	//}
 }
 
 func SteamMockLoginHandler(w http.ResponseWriter, r *http.Request) {
@@ -108,6 +108,7 @@ func SteamLoginCallbackHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	parts := reSteamID.FindStringSubmatch(idURL)
+	logrus.Info(parts)
 	if len(parts) != 2 {
 		http.Error(w, "Authentication failed, please try again.", 500)
 		return

@@ -20,10 +20,10 @@ var (
 type constants struct {
 	ListenAddress	string	`envconfig:"SA_SERVER_ADDR" default:"0.0.0.0:8081" doc:"Address to serve on"`
 	PublicAddress   string   `envconfig:"PUBLIC_ADDR" doc:"Publicly accessible address for the server, requires schema"`
-	OpenIDRealm       string   `envconfig:"SERVER_OPENID_REALM" default:"0.0.0.0:8081" doc:"The OpenID Realm (See: [Section 9.2 of the OpenID Spec](https://openid.net/specs/openid-authentication-2_0-12.html#realms))"`
+	//OpenIDRealm       string   `envconfig:"SERVER_OPENID_REALM" default:"0.0.0.0:8081" doc:"The OpenID Realm (See: [Section 9.2 of the OpenID Spec](https://openid.net/specs/openid-authentication-2_0-12.html#realms))"`
 	AllowedOrigins    []string `envconfig:"ALLOWED_ORIGINS" default:"*"`
 
-	LoginRedirectPath string   `envconfig:"SERVER_REDIRECT_PATH" default:"0.0.0.0:8081/" doc:"URL to redirect user to after a successful login"`
+	LoginRedirectPath string   `envconfig:"SERVER_REDIRECT_PATH" default:"/" doc:"URL to redirect user to after a successful login"`
 	//TODO: not :8081, make :8080 after frontend works
 
 	RabbitMQURL     string  `envconfig:"RABBITMQ_URL" default:"amqp://guest:guest@localhost:5672/" doc:"URL for AMQP server"`
