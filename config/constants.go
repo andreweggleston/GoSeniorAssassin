@@ -20,7 +20,11 @@ var (
 type constants struct {
 	ListenAddress	string	`envconfig:"SA_SERVER_ADDR" default:"0.0.0.0:8081" doc:"Address to serve on"`
 	PublicAddress   string   `envconfig:"PUBLIC_ADDR" doc:"Publicly accessible address for the server, requires schema"`
+	AllowedOrigins    []string `envconfig:"ALLOWED_ORIGINS" default:"*"`
+
 	RabbitMQURL     string  `envconfig:"RABBITMQ_URL" default:"amqp://guest:guest@localhost:5672/" doc:"URL for AMQP server"`
+	RabbitMQQueue     string   `envconfig:"RABBITMQ_QUEUE" default:"events" doc:"Name of queue over which events are sent"`
+
 
 	DbAddr		string	`envconfig:"DATABASE_ADDR" default:"127.0.0.1:5432" doc:"Database Address"`
 	DbDatabase	string 	`envconfig:"DATABASE_NAME" default:"seniorassassin" doc:"Database Name"`
@@ -31,7 +35,10 @@ type constants struct {
 
 	SlackbotURL       string   `envconfig:"SLACK_URL" doc:"Slack webhook URL"`
 
-	IDWhitelist  string   `envconfig:"ID_WHITELIST" doc:"ID Group XML page to use to filter logins"`
+	IDWhitelist  	string   `envconfig:"ID_WHITELIST" doc:"ID Group XML page to use to filter logins"`
+	MockupAuth        bool     `envconfig:"MOCKUP_AUTH" default:"false" doc:"Enable Mockup Authentication"`
+	ServeStatic       bool     `envconfig:"SERVE_STATIC" default:"true" doc:"Serve /static/"`
+
 }
 
 var Constants = constants{}
