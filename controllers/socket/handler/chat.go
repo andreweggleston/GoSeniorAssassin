@@ -43,7 +43,7 @@ func (Chat) ChatSend(so *wsevent.Client, args struct {
 	message := chat.NewChatMessage(*args.Message, *args.Room, p)
 
 	if strings.HasPrefix(*args.Message, "!admin") {
-		chelpers.SendToSlack(*args.Message, p.Name, p.ID)
+		chelpers.SendToSlack(*args.Message, p.Name, p.StudentID)
 		return emptySuccess
 	}
 

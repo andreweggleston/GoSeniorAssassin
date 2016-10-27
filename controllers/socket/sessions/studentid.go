@@ -13,27 +13,27 @@ var (
 	connectedTimer   = make(map[string](*time.Timer))
 )
 
-func AddSocket(id string, so *wsevent.Client) {
+func AddSocket(studentid string, so *wsevent.Client) {
 	socketsMu.Lock()
 	defer socketsMu.Unlock()
 
-	IDSockets[id] = append(IDSockets[id], so)
-	if len(IDSockets[id]) == 1 {
+	IDSockets[studentid] = append(IDSockets[studentid], so)
+	if len(IDSockets[studentid]) == 1 {
 		connectedMu.Lock()
-		timer, ok := connectedTimer[id]
+		timer, ok := connectedTimer[studentid]
 		if ok {
 			timer.Stop()
-			delete(connectedTimer, id)
+			delete(connectedTimer, studentid)
 		}
 		connectedMu.Unlock()
 	}
 }
 
-func RemoveSocket(sessionID, id string) {
+func RemoveSocket(sessionID, studentid string) {
 	socketsMu.Lock()
 	defer socketsMu.Unlock()
 
-	clients := IDSockets[id]
+	clients := IDSockets[studentid]
 	for i, socket := range clients {
 		if socket.ID == sessionID {
 			clients[i] = clients[len(clients)-1]
@@ -43,43 +43,43 @@ func RemoveSocket(sessionID, id string) {
 		}
 	}
 
-	IDSockets[id] = clients
+	IDSockets[studentid] = clients
 
 	if len(clients) == 0 {
-		delete(IDSockets, id)
+		delete(IDSockets, studentid)
 	}
 }
 
-func GetSockets(id string) (sockets []*wsevent.Client, success bool) {
+func GetSockets(studentid string) (sockets []*wsevent.Client, success bool) {
 	socketsMu.RLock()
 	defer socketsMu.RUnlock()
 
-	sockets, success = IDSockets[id]
+	sockets, success = IDSockets[studentid]
 	return
 }
 
-func IsConnected(id string) bool {
-	_, ok := GetSockets(id)
+func IsConnected(studentid string) bool {
+	_, ok := GetSockets(studentid)
 	return ok
 }
 
-func ConnectedSockets(id string) int {
+func ConnectedSockets(studentid string) int {
 	socketsMu.RLock()
-	l := len(IDSockets[id])
+	l := len(IDSockets[studentid])
 	socketsMu.RUnlock()
 
 	return l
 }
 
-func AfterDisconnectedFunc(id string, d time.Duration, f func()) {
+func AfterDisconnectedFunc(studentid string, d time.Duration, f func()) {
 	connectedMu.Lock()
-	connectedTimer[id] = time.AfterFunc(d, func() {
-		if !IsConnected(id) {
+	connectedTimer[studentid] = time.AfterFunc(d, func() {
+		if !IsConnected(studentid) {
 			f()
 		}
 
 		connectedMu.Lock()
-		delete(connectedTimer, id)
+		delete(connectedTimer, studentid)
 		connectedMu.Unlock()
 	})
 	connectedMu.Unlock()

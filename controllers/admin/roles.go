@@ -18,7 +18,7 @@ func ChangeRole(w http.ResponseWriter, r *http.Request) {
 	}
 
 	values := r.Form
-	id := values.Get("id")
+	studentid := values.Get("studentid")
 	remove := values.Get("remove")
 	token := values.Get("xsrf-token")
 	if !xsrftoken.Valid(token, config.Constants.CookieStoreSecret, "admin", "POST") {
@@ -35,7 +35,7 @@ func ChangeRole(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	player, err := player.GetPlayerByID(id)
+	player, err := player.GetPlayerByStudentID(studentid)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
@@ -61,8 +61,8 @@ func Remove(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	steamid := r.Form.Get("steamid")
-	player, err := player.GetPlayerByID(steamid)
+	studentid := r.Form.Get("studentid")
+	player, err := player.GetPlayerByStudentID(studentid)
 	if err != nil {
 		http.Error(w, err.Error(), 400)
 		return

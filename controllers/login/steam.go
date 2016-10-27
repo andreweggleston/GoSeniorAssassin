@@ -44,15 +44,15 @@ func SteamMockLoginHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	steamid := r.URL.Query().Get("steamid")
-	if steamid == "" {
-		http.Error(w, "No SteamID given", http.StatusBadRequest)
+	studentid := r.URL.Query().Get("studentid")
+	if studentid == "" {
+		http.Error(w, "No StudentID given", http.StatusBadRequest)
 		return
 	}
 
-	p, err := player.GetPlayerByID(steamid)
+	p, err := player.GetPlayerByStudentID(studentid)
 	if err != nil {
-		p, err = player.NewPlayer(steamid)
+		p, err = player.NewPlayer(studentid)
 		if err != nil {
 			logrus.Error(err)
 			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
@@ -109,22 +109,22 @@ func SteamLoginCallbackHandler(w http.ResponseWriter, r *http.Request) {
 
 	parts := reSteamID.FindStringSubmatch(idURL)
 	if len(parts) != 2 {
-		http.Error(w, "Steam Authentication failed, please try again.", 500)
+		http.Error(w, "Authentication failed, please try again.", 500)
 		return
 	}
 
-	steamid := parts[1]
+	studentid := parts[1]
 
-	if config.Constants.SteamIDWhitelist != "" &&
-		!controllerhelpers.IsSteamIDWhitelisted(steamid) {
+	if config.Constants.IDWhitelist != "" &&
+		!controllerhelpers.IsIDWhitelisted(studentid) {
 		//Use a more user-friendly message later
 		http.Error(w, "Sorry, you're not in the closed alpha.", 403)
 		return
 	}
 
-	p, err := player.GetPlayerBySteamID(steamid)
+	p, err := player.GetPlayerByStudentID(studentid)
 	if err != nil {
-		p, err = player.NewPlayer(steamid)
+		p, err = player.NewPlayer(studentid)
 		if err != nil {
 			logrus.Error(err)
 			http.Error(w, "Internal Server Error", http.StatusInternalServerError)

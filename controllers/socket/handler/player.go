@@ -53,14 +53,14 @@ func (Player) PlayerSettingsSet(so *wsevent.Client, args struct {
 }
 
 func (Player) PlayerProfile(so *wsevent.Client, args struct {
-	id *string `json:"id"`
+	Studentid *string `json:"studentid"`
 }) interface {} {
-	 id := *args.id
-	if id == "" {
-		id = so.Token.Claims["id"].(string)
+	 studentid := *args.Studentid
+	if studentid == "" {
+		studentid = so.Token.Claims["student_id"].(string)
 	}
 
-	player, err := player.GetPlayerByID(id)
+	player, err := player.GetPlayerByStudentID(studentid)
 	if err != nil {
 		return err
 	}

@@ -16,7 +16,7 @@ func OnDisconnect(socketID string, token *jwt.Token) {
 
 		//TODO: get the lobby shit out
 
-		sessions.RemoveSocket(socketID, player.ID)
+		sessions.RemoveSocket(socketID, player.StudentID)
 
 	}
 }

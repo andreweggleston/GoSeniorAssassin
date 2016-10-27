@@ -37,6 +37,7 @@ type constants struct {
 
 	CookieStoreSecret string   `envconfig:"COOKIE_STORE_SECRET" default:"secret" doc:"base64 encoded key to use for encrypting cookies"`
 	CookieDomain      string   `envconfig:"SERVER_COOKIE_DOMAIN" default:"" doc:"Cookie URL domain"`
+	SecureCookies      bool     `envconfig:"SECURE_COOKIE" doc:"Enable 'secure' flag on cookies" default:"false"`
 
 	SlackbotURL       string   `envconfig:"SLACK_URL" doc:"Slack webhook URL"`
 

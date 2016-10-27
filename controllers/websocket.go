@@ -9,6 +9,10 @@ import (
 	"github.com/Sirupsen/logrus"
 	"github.com/gorilla/websocket"
 	"github.com/andreweggleston/GoSeniorAssassin/config"
+	"github.com/andreweggleston/GoSeniorAssassin/routes/socket"
+	"github.com/andreweggleston/GoSeniorAssassin/controllers/controllerhelpers/hooks"
+	"github.com/andreweggleston/GoSeniorAssassin/models/player"
+	"github.com/andreweggleston/GoSeniorAssassin/helpers"
 )
 
 var upgrader = websocket.Upgrader{CheckOrigin: func(_ *http.Request) bool { return true }}
@@ -20,7 +24,7 @@ func SocketHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	//check if player is in the whitelist
-	if config.Constants.SteamIDWhitelist != "" {
+	if config.Constants.IDWhitelist != "" {
 		if token == nil {
 			// player isn't logged in,
 			// and access is restricted to logged in people
@@ -28,7 +32,7 @@ func SocketHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		if !chelpers.IsSteamIDWhitelisted(token.Claims["steam_id"].(string)) {
+		if !chelpers.IsIDWhitelisted(token.Claims["student_id"].(string)) {
 			http.Error(w, "you're not in the beta", http.StatusForbidden)
 			return
 		}
@@ -66,11 +70,11 @@ func SocketInit(so *wsevent.Client) error {
 	if loggedIn {
 		hooks.AfterConnect(socket.AuthServer, so)
 
-		steamid := so.Token.Claims["steam_id"].(string)
+		studentid := so.Token.Claims["student_id"].(string)
 
-		player, err := player.GetPlayerBySteamID(steamid)
+		player, err := player.GetPlayerByStudentID(studentid)
 		if err != nil {
-			return fmt.Errorf("Couldn't find player record for %s", steamid)
+			return fmt.Errorf("Couldn't find player record for %s", studentid)
 		}
 
 		hooks.AfterConnectLoggedIn(so, player)

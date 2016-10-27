@@ -22,7 +22,6 @@ type ChatMessage struct {
 	Message   string        `json:"message" sql:"type:varchar(150)"` // the actual Message
 	Deleted   bool          `json:"deleted"`                         // true if the message has been deleted by a moderator
 	Bot       bool          `json:"bot"`                             // true if the message was sent by the notification "bot"
-	InGame    bool          `json:"ingame"`                          // true if the message is in-game
 }
 
 // Return a new ChatMessage sent from specficied player
@@ -37,15 +36,6 @@ func NewChatMessage(message string, room int, player *player.Player) *ChatMessag
 	return record
 }
 
-func NewInGameChatMessage(lobbyID uint, player *player.Player, message string) *ChatMessage {
-	return &ChatMessage{
-		PlayerID: player.ID,
-
-		Room:    int(lobbyID),
-		Message: message,
-		InGame:  true,
-	}
-}
 
 func (m *ChatMessage) Save() {
 	db.DB.Save(m)
@@ -61,11 +51,11 @@ func (m *ChatMessage) Send() {
 // we only need these three things for showing player messages
 type minPlayer struct {
 	Name    string   `json:"name"`
-	ID string   `json:"steamid"`
+	StudentID string   `json:"studentid"`
 	Tags    []string `json:"tags"`
 }
 
-var bot = minPlayer{"OverwatchStadium", "76561198310822172", []string{"tf2stadium"}}
+var bot = minPlayer{"AssassinBot", "assassin_bot", []string{"tf2stadium"}}
 
 func (m *ChatMessage) MarshalJSON() ([]byte, error) {
 	message := map[string]interface{}{
@@ -74,7 +64,6 @@ func (m *ChatMessage) MarshalJSON() ([]byte, error) {
 		"room":      m.Room,
 		"message":   m.Message,
 		"deleted":   m.Deleted,
-		"ingame":    m.InGame,
 	}
 	if m.Bot {
 		message["player"] = bot
@@ -82,7 +71,8 @@ func (m *ChatMessage) MarshalJSON() ([]byte, error) {
 		p := &player.Player{}
 		db.DB.First(p, m.PlayerID)
 		player := minPlayer{
-			ID: p.ID,
+			Name:	p.StudentID,
+			Tags:	p.DecoratePlayerTags(),
 		}
 
 		if m.Deleted {

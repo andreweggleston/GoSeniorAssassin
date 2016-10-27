@@ -12,10 +12,10 @@ func (Unauth) Name(s string) string {
 }
 
 func (Unauth) PlayerProfile(so *wsevent.Client, args struct {
-	Steamid *string `json:"steamid"`
+	Studentid *string `json:"studentid"`
 }) interface{} {
 
-	player, err := player.GetPlayerByID(*args.Steamid)
+	player, err := player.GetPlayerByStudentID(*args.Studentid)
 	if err != nil {
 		return err
 	}

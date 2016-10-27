@@ -21,7 +21,7 @@ func BanPlayer(w http.ResponseWriter, r *http.Request) {
 	}
 
 	values := r.Form
-	id := values.Get("id")
+	studentid := values.Get("studentid")
 	reason := values.Get("reason")
 	banType := values.Get("type")
 	remove := values.Get("remove")
@@ -40,7 +40,7 @@ func BanPlayer(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	player, err := player.GetPlayerByID(id)
+	player, err := player.GetPlayerByStudentID(studentid)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
@@ -88,8 +88,8 @@ func GetBanLogs(w http.ResponseWriter, r *http.Request) {
 
 	all := values.Get("all")
 
-	steamid := values.Get("steamid")
-	if steamid == "" {
+	studentid := values.Get("studentid")
+	if studentid == "" {
 		if all == "" {
 			bans = player.GetAllActiveBans()
 		} else {
@@ -97,7 +97,7 @@ func GetBanLogs(w http.ResponseWriter, r *http.Request) {
 		}
 
 	} else {
-		player, err := player.GetPlayerByID(steamid)
+		player, err := player.GetPlayerByStudentID(studentid)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusNotFound)
 			return

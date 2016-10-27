@@ -15,10 +15,10 @@ func AfterConnect(server *wsevent.Server, so *wsevent.Client) {
 var emptyMap = make(map[string]string)
 
 func AfterConnectLoggedIn(so *wsevent.Client, player *player.Player) {
-	sessions.AddSocket(player.ID, so)
+	sessions.AddSocket(player.StudentID, so)
 
 	if time.Since(player.ProfileUpdatedAt) >= 30*time.Minute {
-		player.UpdatePlayerInfo
+		player.UpdatePlayerInfo()
 	}
 
 	if player.Settings != nil {

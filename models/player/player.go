@@ -16,6 +16,7 @@ var ErrPlayerInReportedSlot = errors.New("Player in reported slot")
 
 type Player struct {
 	ID			uint		`gorm:"primary_key" json:"id"`
+	StudentID		string		`sql:"not null;unique" json:"studentid"`
 	Name			string		`json:"name"`
 	CreatedAt            	time.Time 	`json:"createdAt"`
 	ProfileUpdatedAt      	time.Time 	`json:"-"`
@@ -34,8 +35,8 @@ type JSONFields struct {
 	PlaceholderBans  []*PlayerBan `sql:"-" json:"bans"`
 }
 
-func NewPlayer(Id string) (*Player, error) {
-	player := &Player{ID: Id}
+func NewPlayer(studentID string) (*Player, error) {
+	player := &Player{StudentID: studentID}
 
 	last := &Player{}
 	db.DB.Model(&Player{}).Last(last)
@@ -85,6 +86,15 @@ func GetPlayerByID(ID uint) (*Player, error) {
 	}
 
 	return player, nil
+}
+
+func GetPlayerByStudentID(studentid string) (*Player, error) {
+	var player = Player{}
+	err := db.DB.Where("student_id = ?", studentid).First(&player).Error
+	if err != nil {
+		return nil, ErrPlayerNotFound
+	}
+	return &player, nil
 }
 
 func (player *Player) GetSetting(key string) string {
