@@ -8,7 +8,6 @@ import (
 	"github.com/andreweggleston/GoSeniorAssassin/controllers/broadcaster"
 	db "github.com/andreweggleston/GoSeniorAssassin/database"
 	"github.com/andreweggleston/GoSeniorAssassin/models/player"
-	"strconv"
 )
 
 
@@ -83,7 +82,7 @@ func (m *ChatMessage) MarshalJSON() ([]byte, error) {
 		p := &player.Player{}
 		db.DB.First(p, m.PlayerID)
 		player := minPlayer{
-			ID: strconv.Itoa(int(p.ID)),
+			ID: p.ID,
 		}
 
 		if m.Deleted {

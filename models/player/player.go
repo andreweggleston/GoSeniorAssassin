@@ -9,8 +9,6 @@ import (
 	"github.com/jinzhu/gorm/dialects/postgres"
 	db "github.com/andreweggleston/GoSeniorAssassin/database"
 	"github.com/andreweggleston/GoSeniorAssassin/helpers/authority"
-	"strconv"
-	"github.com/Sirupsen/logrus"
 )
 
 var ErrPlayerNotFound = errors.New("Player not found")
@@ -37,13 +35,7 @@ type JSONFields struct {
 }
 
 func NewPlayer(Id string) (*Player, error) {
-	i, err := strconv.Atoi(Id)
-	if err != nil {
-		logrus.Fatal(err)
-	}
-	f := float64(i)
-	u := uint(f)
-	player := &Player{ID: u}
+	player := &Player{ID: Id}
 
 	last := &Player{}
 	db.DB.Model(&Player{}).Last(last)

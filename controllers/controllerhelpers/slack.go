@@ -35,7 +35,7 @@ func slackBroadcaster() {
 	}
 }
 
-func SendToSlack(msg, name, id uint) {
+func SendToSlack(msg, name, id string) {
 	if config.Constants.SlackbotURL == "" {
 		return
 	}
