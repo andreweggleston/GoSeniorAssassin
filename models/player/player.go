@@ -14,15 +14,19 @@ var ErrPlayerInReportedSlot = errors.New("Player in reported slot")
 
 type Player struct {
 	ID			uint		`gorm:"primary_key" json:"id"`
+	Sub			string		`sql:"not null;unique" json:"sub"`
 	StudentID		string		`sql:"not null;unique" json:"studentid"`
 	Name			string		`json:"name"`
+	TargetID		string		`sql:"not null" json:"targetid"`
+	Email			string		`sql:"not null" json:"email"`
+
 	CreatedAt            	time.Time 	`json:"createdAt"`
 	ProfileUpdatedAt      	time.Time 	`json:"-"`
-	StreamStatusUpdatedAt 	time.Time 	`json:"-"`
+
 
 	Settings postgres.Hstore `json:"-"`
 
-	Role       authority.AuthRole `sql:"default:0" json:"-"`
+	Role     		authority.AuthRole `sql:"default:0" json:"-"`
 
 	JSONFields
 }

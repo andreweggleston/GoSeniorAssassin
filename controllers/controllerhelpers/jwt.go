@@ -18,7 +18,7 @@ var (
 
 func init() {
 	if config.Constants.CookieStoreSecret == "secret" {
-		logrus.Warning("Using an insecure encruption key")
+		logrus.Warning("Using an insecure encryption key")
 		signingKey = []byte("secret")
 		return
 	}

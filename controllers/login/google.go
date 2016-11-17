@@ -109,51 +109,52 @@ func GoogleAuthHandler(w http.ResponseWriter, r * http.Request) {
 	log.Println(string(data))
 
 	user := ParseBody(data)
-	log.Println(string(user.Email))
 
-	studentEmail := string(user.Email)
-	studentSplitEmail := strings.Split(studentEmail, "@")
+	studentid := strings.Split(user.Email, "@student.wayland.k12.ma.us")[0]
 
-	studentid := studentSplitEmail[0]
-	studentName := strings.Replace(studentid, "_", " ", -1)
-
-	user.Name = studentName
-
-	p, err := player.GetPlayerByStudentID(studentid)
-	if err != nil {
-		p, err = player.NewPlayer(studentid)
-
+	if !strings.Contains(user.Email, "@student.wayland.k12.ma.us") {
+		http.Error(w, "Sign up with your school account!", http.StatusForbidden)
+		http.Redirect(w, r, "/", http.StatusForbidden)
+	}else {
+		p, err := player.GetPlayerByStudentID(studentid)
 		if err != nil {
-			logrus.Error(err)
-			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-			return
+
+			p, err = player.NewPlayer(studentid)
+
+			if err != nil {
+				logrus.Error(err)
+				http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+				return
+			}
+			p.Name = strings.Replace(studentid, "_", " ", -1)
+			log.Print(strings.Split(user.Email, "@student.wayland.k12.ma.us")[0])
+			p.Sub = user.Sub
+			p.Email = user.Email
+
+			database.DB.Create(p)
 		}
-		p.Name = user.Name
 
-		database.DB.Create(p)
-	}
+		go func() {
+			if time.Since(p.ProfileUpdatedAt) >= 1 * time.Hour {
+				p.UpdatePlayerInfo()
+			}
+		}()
 
-
-	go func() {
-		if time.Since(p.ProfileUpdatedAt) >= 1*time.Hour {
-			p.UpdatePlayerInfo()
+		key := controllerhelpers.NewToken(p)
+		cookie := &http.Cookie{
+			Name:     "auth-jwt",
+			Value:    key,
+			Path:     "/",
+			Domain:   config.Constants.CookieDomain,
+			Expires:  time.Now().Add(30 * 24 * time.Hour),
+			HttpOnly: true,
+			Secure:   config.Constants.SecureCookies,
 		}
-	}()
 
-	key := controllerhelpers.NewToken(p)
-	cookie := &http.Cookie{
-		Name:     "auth-jwt",
-		Value:    key,
-		Path:     "/",
-		Domain:   config.Constants.CookieDomain,
-		Expires:  time.Now().Add(30 * 24 * time.Hour),
-		HttpOnly: true,
-		Secure:   config.Constants.SecureCookies,
+		http.SetCookie(w, cookie)
+
+		http.Redirect(w, r, config.Constants.LoginRedirectPath, 303)
 	}
-
-	http.SetCookie(w, cookie)
-
-	http.Redirect(w, r, config.Constants.LoginRedirectPath, 303)
 }
 
 func ParseBody(body []byte) (*User) {
