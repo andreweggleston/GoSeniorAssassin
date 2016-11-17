@@ -32,10 +32,12 @@ func init() {
 
 func NewToken(player *player.Player) string {
 	token := jwt.New(jwt.SigningMethodHS512)
-	token.Claims["player_id"] = strconv.FormatUint(uint64(player.ID), 10)
-	token.Claims["role"] = strconv.Itoa(int(player.Role))
-	token.Claims["iat"] = time.Now().Unix()
-	token.Claims["iss"] = config.Constants.PublicAddress
+	claims := make(jwt.MapClaims)
+	claims["player_id"] = strconv.FormatUint(uint64(player.ID), 10)
+	claims["role"] = strconv.Itoa(int(player.Role))
+	claims["iat"] = time.Now().Unix()
+	claims["iss"] = config.Constants.PublicAddress
+	token.Claims = claims
 
 	str, err := token.SignedString([]byte(signingKey))
 	if err != nil {
@@ -64,7 +66,8 @@ func GetToken(r *http.Request) (*jwt.Token, error) {
 }
 
 func GetPlayer(token *jwt.Token) *player.Player {
-	playerid, _ := strconv.ParseUint(token.Claims["player_id"].(string), 10, 32)
+	claims:=token.Claims.(jwt.MapClaims)
+	playerid, _ := strconv.ParseUint(claims["player_id"].(string), 10, 32)
 	player, _ := player.GetPlayerByID(uint(playerid))
 	return player
 }

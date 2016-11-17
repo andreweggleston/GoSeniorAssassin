@@ -4,7 +4,6 @@ import (
 	"github.com/Sirupsen/logrus"
 	db "github.com/andreweggleston/GoSeniorAssassin/database"
 	"github.com/andreweggleston/GoSeniorAssassin/models/player"
-	"github.com/TF2Stadium/Helen/models/lobby"
 )
 
 var migrationRoutines = map[uint64]func(){
@@ -129,7 +128,6 @@ func moveReportsServers() {
 }
 
 func dropUnusedColumns() {
-	db.DB.Model(&lobby.Lobby{}).DropColumn("slot_password")
 	db.DB.Model(&player.Player{}).DropColumn("debug")
 }
 

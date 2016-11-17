@@ -109,12 +109,20 @@ func GoogleAuthHandler(w http.ResponseWriter, r * http.Request) {
 	log.Println(string(data))
 
 	user := ParseBody(data)
+	log.Println(string(user.Email))
 
-	studentid := strings.Replace(user.Name, " ", "_", -1)
+	studentEmail := string(user.Email)
+	studentSplitEmail := strings.Split(studentEmail, "@")
+
+	studentid := studentSplitEmail[0]
+	studentName := strings.Replace(studentid, "_", " ", -1)
+
+	user.Name = studentName
 
 	p, err := player.GetPlayerByStudentID(studentid)
 	if err != nil {
 		p, err = player.NewPlayer(studentid)
+
 		if err != nil {
 			logrus.Error(err)
 			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
@@ -124,6 +132,7 @@ func GoogleAuthHandler(w http.ResponseWriter, r * http.Request) {
 
 		database.DB.Create(p)
 	}
+
 
 	go func() {
 		if time.Since(p.ProfileUpdatedAt) >= 1*time.Hour {

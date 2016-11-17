@@ -20,7 +20,6 @@ type route struct {
 var httpRoutes = []route{
 	{"/", controllers.MainHandler},
 	{"/websocket/", controllers.SocketHandler},
-	{"/startMockLogin", login.SteamMockLoginHandler},
 
 	{"/login", login.GoogleLoginHandler},
 	{"/auth", login.GoogleAuthHandler},

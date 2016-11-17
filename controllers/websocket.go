@@ -13,6 +13,7 @@ import (
 	"github.com/andreweggleston/GoSeniorAssassin/controllers/controllerhelpers/hooks"
 	"github.com/andreweggleston/GoSeniorAssassin/models/player"
 	"github.com/andreweggleston/GoSeniorAssassin/helpers"
+	"github.com/dgrijalva/jwt-go"
 )
 
 var upgrader = websocket.Upgrader{CheckOrigin: func(_ *http.Request) bool { return true }}
@@ -31,8 +32,8 @@ func SocketHandler(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, "Not logged in", http.StatusForbidden)
 			return
 		}
-
-		if !chelpers.IsIDWhitelisted(token.Claims["student_id"].(string)) {
+		claims := token.Claims.(jwt.MapClaims)
+		if !chelpers.IsIDWhitelisted(claims["student_id"].(string)) {
 			http.Error(w, "you're not in the beta", http.StatusForbidden)
 			return
 		}
@@ -69,8 +70,8 @@ func SocketInit(so *wsevent.Client) error {
 
 	if loggedIn {
 		hooks.AfterConnect(socket.AuthServer, so)
-
-		studentid := so.Token.Claims["student_id"].(string)
+		claims := so.Token.Claims.(jwt.MapClaims)
+		studentid := claims["student_id"].(string)
 
 		player, err := player.GetPlayerByStudentID(studentid)
 		if err != nil {

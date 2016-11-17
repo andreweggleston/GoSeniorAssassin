@@ -12,6 +12,7 @@ import (
 	"github.com/andreweggleston/GoSeniorAssassin/models/player"
 	"errors"
 	"strconv"
+	"github.com/dgrijalva/jwt-go"
 )
 
 var (
@@ -61,7 +62,8 @@ func IsIDWhitelisted(id string) bool {
 }
 
 func CheckPrivilege(so *wsevent.Client, action authority.AuthAction) error {
-	player, _ := player.GetPlayerByID(so.Token.Claims["id"].(uint))
+	claims := so.Token.Claims.(jwt.MapClaims)
+	player, _ := player.GetPlayerByID(claims["id"].(uint))
 	if !player.Role.Can(action) {
 		return errors.New("You are not authorized to perform this action")
 	}
@@ -77,7 +79,8 @@ func FilterHTTPRequest(action authority.AuthAction, f func(http.ResponseWriter, 
 			return
 		}
 
-		role, _ := strconv.Atoi(token.Claims["role"].(string))
+		claims:=token.Claims.(jwt.MapClaims)
+		role, _ := strconv.Atoi(claims["role"].(string))
 
 		if !(authority.AuthRole(role).Can(action)) {
 			http.Error(w, "Not authorized", 403)

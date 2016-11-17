@@ -7,6 +7,7 @@ import (
 	"github.com/andreweggleston/GoSeniorAssassin/helpers"
 	"github.com/andreweggleston/GoSeniorAssassin/models/player"
 	"sync"
+	"github.com/dgrijalva/jwt-go"
 )
 
 type Player struct {}
@@ -57,7 +58,8 @@ func (Player) PlayerProfile(so *wsevent.Client, args struct {
 }) interface {} {
 	 studentid := *args.Studentid
 	if studentid == "" {
-		studentid = so.Token.Claims["student_id"].(string)
+		claims := so.Token.Claims.(jwt.MapClaims)
+		studentid = claims["student_id"].(string)
 	}
 
 	player, err := player.GetPlayerByStudentID(studentid)

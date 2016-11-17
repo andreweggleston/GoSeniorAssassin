@@ -5,6 +5,7 @@ import (
 	"github.com/bitly/go-simplejson"
 	"errors"
 	"github.com/andreweggleston/GoSeniorAssassin/controllers/broadcaster"
+	"github.com/dgrijalva/jwt-go"
 )
 
 type Global struct{}
@@ -30,7 +31,8 @@ func (Global) SendToOtherClients(so *wsevent.Client, args struct{
 	Event string `json:"event"`
 	Data string `json:"data"`
 }) interface{} {
-	ID := so.Token.Claims["id"].(string)
+	claims := so.Token.Claims.(jwt.MapClaims)
+	ID := claims["id"].(string)
 	broadcaster.SendMessageSkipIDs(so.ID, ID, args.Event, args.Data)
 	return emptySuccess
 }
