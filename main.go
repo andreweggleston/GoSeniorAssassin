@@ -59,8 +59,6 @@ func main() {
 	database.DB.DB().SetMaxOpenConns(*dbMaxopen)
 	migrations.Do()
 
-	helpers.ConnectAMQP()
-
 	if config.Constants.IDWhitelist != "" {
 		go chelpers.WhitelistListener()
 	}

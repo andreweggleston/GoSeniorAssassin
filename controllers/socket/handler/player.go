@@ -68,6 +68,7 @@ func (Player) PlayerProfile(so *wsevent.Client, args struct {
 	}
 
 	player.SetPlayerProfile()
+
 	return newResponse(player)
 }
 

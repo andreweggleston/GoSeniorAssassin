@@ -17,12 +17,16 @@ type Player struct {
 	Sub			string		`sql:"not null;unique" json:"sub"`
 	StudentID		string		`sql:"not null;unique" json:"studentid"`
 	Name			string		`json:"name"`
-	TargetID		string		`sql:"not null" json:"targetid"`
 	Email			string		`sql:"not null" json:"email"`
 
+	Target			string		`json:"target"`
 	CreatedAt            	time.Time 	`json:"createdAt"`
 	ProfileUpdatedAt      	time.Time 	`json:"-"`
 
+	MarkedForDeath		bool		`sql:"not null" json:"markedfordeath"`
+	Killed			bool		`sql:"not null" json:"killed"`
+
+	GlobalData
 
 	Settings postgres.Hstore `json:"-"`
 
@@ -35,6 +39,12 @@ type JSONFields struct {
 	PlaceholderTags          *[]string `sql:"-" json:"tags"`
 	PlaceholderRoleStr       *string   `sql:"-" json:"role"`
 	PlaceholderBans  []*PlayerBan `sql:"-" json:"bans"`
+}
+
+type GlobalData struct {
+	SafetyItem	string
+	KillByDate	string
+	Announcement	string
 }
 
 func NewPlayer(studentID string) (*Player, error) {
@@ -124,4 +134,19 @@ func (player *Player) UpdatePlayerInfo() error {
 	//TODO: get elbing to make some shitty thing to grab data from ipass
 
 	return nil
+}
+
+func (player *Player) UpdateGlobalData() {
+	player.GlobalData.Announcement = "not implemented";
+	player.GlobalData.KillByDate = "not implemented";
+	player.GlobalData.SafetyItem = "not implemented";
+}
+
+func (player *Player) MarkForDeath() {
+	player.MarkedForDeath = true;
+}
+
+func (player *Player) Kill() {
+	player.Killed = true;
+	//TODO: find value to set player.target to when player.Killed == true
 }
