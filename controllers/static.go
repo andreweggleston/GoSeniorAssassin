@@ -6,7 +6,7 @@ import (
 	"github.com/andreweggleston/GoSeniorAssassin/models/player"
 	"github.com/andreweggleston/GoSeniorAssassin/controllers/controllerhelpers"
 	"github.com/andreweggleston/GoSeniorAssassin/config"
-	"github.com/andreweggleston/GoSeniorAssassin/internal/version"
+	"github.com/andreweggleston/GoSeniorAssassin/inside/version"
 	"fmt"
 	"runtime"
 	"github.com/sirupsen/logrus"

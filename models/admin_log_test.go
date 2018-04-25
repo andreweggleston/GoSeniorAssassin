@@ -1,7 +1,7 @@
 package models
 
 import (
-	"github.com/andreweggleston/GoSeniorAssassin/internal/testhelpers"
+	"github.com/andreweggleston/GoSeniorAssassin/inside/testhelpers"
 	"github.com/stretchr/testify/assert"
 	"testing"
 	"github.com/andreweggleston/GoSeniorAssassin/database"

@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"github.com/andreweggleston/GoSeniorAssassin/config"
 	"os"
-	"github.com/andreweggleston/GoSeniorAssassin/internal/version"
+	"github.com/andreweggleston/GoSeniorAssassin/inside/version"
 	"github.com/andreweggleston/GoSeniorAssassin/controllers"
 	"github.com/andreweggleston/GoSeniorAssassin/database"
 	"github.com/andreweggleston/GoSeniorAssassin/database/migrations"

@@ -4,7 +4,7 @@ import (
 	"github.com/dgrijalva/jwt-go"
 	"github.com/andreweggleston/GoSeniorAssassin/routes/socket"
 	"github.com/andreweggleston/GoSeniorAssassin/controllers/controllerhelpers/hooks"
-	"github.com/andreweggleston/GoSeniorAssassin/internal/pprof"
+	"github.com/andreweggleston/GoSeniorAssassin/inside/pprof"
 	"github.com/andreweggleston/GoSeniorAssassin/controllers/socket/handler"
 )
 

@@ -1,7 +1,7 @@
 package player
 
 import (
-	"github.com/andreweggleston/GoSeniorAssassin/internal/testhelpers"
+	"github.com/andreweggleston/GoSeniorAssassin/inside/testhelpers"
 	"testing"
 	"github.com/stretchr/testify/assert"
 	"time"
