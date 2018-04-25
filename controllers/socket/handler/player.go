@@ -7,10 +7,11 @@ import (
 	"github.com/andreweggleston/GoSeniorAssassin/helpers"
 	"github.com/andreweggleston/GoSeniorAssassin/models/player"
 	"sync"
-	"github.com/dgrijalva/jwt-go"
+	"github.com/sirupsen/logrus"
+	"time"
 )
 
-type Player struct {}
+type Player struct{}
 
 func (Player) Name(s string) string {
 	return string((s[0])+32) + s[1:]
@@ -30,9 +31,9 @@ func (Player) PlayerSettingsGet(so *wsevent.Client, args struct {
 }
 
 func (Player) PlayerSettingsSet(so *wsevent.Client, args struct {
-	Key *string `json:"key"`
+	Key   *string `json:"key"`
 	Value *string `json:"value"`
-}) interface {} {
+}) interface{} {
 
 	player := chelpers.GetPlayer(so.Token)
 
@@ -55,11 +56,10 @@ func (Player) PlayerSettingsSet(so *wsevent.Client, args struct {
 
 func (Player) PlayerProfile(so *wsevent.Client, args struct {
 	Studentid *string `json:"studentid"`
-}) interface {} {
-	 studentid := *args.Studentid
+}) interface{} {
+	studentid := *args.Studentid
 	if studentid == "" {
-		claims := so.Token.Claims.(jwt.MapClaims)
-		studentid = claims["student_id"].(string)
+		studentid = so.Token.Claims.(*chelpers.AssassinClaims).StudentID
 	}
 
 	player, err := player.GetPlayerByStudentID(studentid)
@@ -69,9 +69,108 @@ func (Player) PlayerProfile(so *wsevent.Client, args struct {
 
 	player.SetPlayerProfile()
 
+	logrus.Debug("Recieved request for: ", studentid)
+
 	return newResponse(player)
 }
 
 var (
 	changeMu = new(sync.RWMutex)
+	//stores the last time the player made a change to
+	//the twitch bot's status (leave/join their channel)
+	lastTextBotChange = make(map[uint]time.Time)
 )
+
+
+func (Player) PlayerEnableTextBot(so *wsevent.Client, _ struct{}) interface{} {
+	player := chelpers.GetPlayer(so.Token)
+	if player.PhoneNumber == "" {
+		return errors.New("Please add a phone number first.")
+	}
+
+	logrus.Debug("Player ", player.Name, " enabled text bot")
+
+	changeMu.RLock()
+	last := lastTextBotChange[player.ID]
+	changeMu.RUnlock()
+	if time.Since(last) < time.Minute {
+		return errors.New("Please wait for a minute before changing the bot's status")
+	}
+
+	//TODO: textBot.add(player.PhoneNumber)
+
+	changeMu.Lock()
+	lastTextBotChange[player.ID] = time.Now()
+	changeMu.Unlock()
+
+	time.AfterFunc(1*time.Minute, func() {
+		changeMu.Lock()
+		delete(lastTextBotChange, player.ID)
+		changeMu.Unlock()
+	})
+
+	return emptySuccess
+}
+
+func (Player) PlayerDisableTextBot(so *wsevent.Client, _ struct{}) interface{} {
+	player := chelpers.GetPlayer(so.Token)
+	if player.PhoneNumber == "" {
+		return errors.New("Please add a phone number first.")
+	}
+
+	logrus.Debug("Player", player.Name, "disabled text bot")
+
+	changeMu.RLock()
+	last := lastTextBotChange[player.ID]
+	changeMu.RUnlock()
+	if time.Since(last) < time.Minute {
+		return errors.New("Please wait for a minute before changing the bot's status")
+	}
+
+	//TODO: textBot.remove(player.PhoneNumber)
+
+	changeMu.Lock()
+	lastTextBotChange[player.ID] = time.Now()
+	changeMu.Unlock()
+
+	time.AfterFunc(1*time.Minute, func() {
+		changeMu.Lock()
+		delete(lastTextBotChange, player.ID)
+		changeMu.Unlock()
+	})
+	return emptySuccess
+}
+
+func (Player) MarkTarget(so *wsevent.Client, _ struct{}) interface{}  {
+	player := chelpers.GetPlayer(so.Token)
+	player.MarkTarget()
+	err := player.Save()
+
+
+	if err != nil{
+		return errors.New("Something broke. Sorry! Contact an admin!")
+	}
+	return emptySuccess
+}
+
+func (Player) ConfirmOwnMark(so *wsevent.Client, _ struct{}) interface{}  {
+	player := chelpers.GetPlayer(so.Token)
+	player.ConfirmOwnMark()
+	err := player.Save()
+
+	if err != nil{
+		return errors.New("Something broke. Sorry! Contact an admin!")
+	}
+	return emptySuccess
+}
+
+func (Player) DenyOwnMark(so *wsevent.Client, _ struct{}) interface{}  {
+	player := chelpers.GetPlayer(so.Token)
+	player.DenyOwnMark()
+	err := player.Save()
+
+	if err != nil{
+		return errors.New("Something broke. Sorry! Contact an admin!")
+	}
+	return emptySuccess
+}

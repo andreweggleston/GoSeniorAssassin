@@ -3,7 +3,7 @@ package database
 import (
 	"testing"
 	"os"
-	"github.com/Sirupsen/logrus"
+	"github.com/sirupsen/logrus"
 	"strconv"
 	"github.com/stretchr/testify/assert"
 	"github.com/andreweggleston/GoSeniorAssassin/config"

@@ -1,7 +1,7 @@
 package migrations
 
 import (
-	"github.com/Sirupsen/logrus"
+	"github.com/sirupsen/logrus"
 	db "github.com/andreweggleston/GoSeniorAssassin/database"
 	"github.com/andreweggleston/GoSeniorAssassin/models/player"
 )
@@ -37,7 +37,6 @@ func updateAllPlayerInfo() {
 	db.DB.Model(&player.Player{}).Find(&players)
 
 	for _, player := range players {
-		player.UpdatePlayerInfo()
 		player.Save()
 	}
 }

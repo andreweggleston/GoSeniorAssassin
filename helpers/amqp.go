@@ -1,7 +1,7 @@
 package helpers
 
 import (
-	"github.com/Sirupsen/logrus"
+	"github.com/sirupsen/logrus"
 	"github.com/andreweggleston/GoSeniorAssassin/config"
 	"github.com/streadway/amqp"
 )

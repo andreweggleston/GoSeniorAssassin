@@ -4,7 +4,7 @@ import (
 	"net/url"
 	"sync"
 
-	"github.com/Sirupsen/logrus"
+	"github.com/sirupsen/logrus"
 	"github.com/jinzhu/gorm"
 	_ "github.com/lib/pq"
 
@@ -46,5 +46,5 @@ func Init() {
 	DB.SetLogger(logrus.StandardLogger())
 
 	logrus.Info("Connected!")
-	initialized = true;
+	initialized = true
 }

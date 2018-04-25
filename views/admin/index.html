@@ -7,22 +7,26 @@
   <center>
   <b>Admin Control Panel</b><br>
   </center>
-  
-  <form method="post" action="admin/ban" class="pure-form">
-    <legend>Bans</legend>
 
-    <input placeholder="ID" type="text" name="id" required>
-    <input placeholder="Reason" type="text" name="reason" required>
-    <label for="state">Ban From</label>
-    <select id="type" name="type">{{range $type, $name := .BanForms}}
-      <option value="{{print $type}}">{{print $name}}</option>{{end}}
-    </select>
-    <label for="state">Ban Until</label>
-    <input placeholder="Date" type="date" name="date">
-    <input placeholder="Time" type="time" name="time">
-    <input type="checkbox" name="remove" value="true">Remove<br>
-    <input type="hidden" name="xsrf-token" value="{{.XSRFToken}}">
-    <button type="submit" class="pure-button pure-button-primary">Ban</button>
+  <form method="post" action="admin/updateannouncement" class="pure-form">
+    <legend>Update Global Announcement</legend>
+
+    <input placeholder="Announcement" type="text" name="announcement" required>
+    <button type="submit" class="pure-button pure-button-primary">Update</button>
+  </form>
+
+  <form method="post" action="admin/updatesafety" class="pure-form">
+      <legend>Update Global Safety Item</legend>
+
+      <input placeholder="Safety Item" type="text" name="safetyitem" required>
+      <button type="submit" class="pure-button pure-button-primary">Update</button>
+  </form>
+
+  <form method="post" action="admin/updatekilldate" class="pure-form">
+      <legend>Update Global Kill by Date</legend>
+
+      <input placeholder="Kill by Date" type="text" name="killdate" required>
+      <button type="submit" class="pure-button pure-button-primary">Update</button>
   </form>
 
   <form method="post" action="admin/roles" class="pure-form">
@@ -45,9 +49,6 @@
     <input type="hidden" name="xsrf-token" value="{{.XSRFToken}}">
     <button type="submit" class="pure-button pure-button-primary">View</button>
   </form>
-  
-  <a class="pure-button pure-button-primary" href="/admin/server/">Manage Stored Servers</a>
-  <a class="pure-button pure-button-primary" href="/admin/lobbies">View lobbies in progress</a>
   
   <form method="get" action="admin/chatlogs" class="pure-form pure-form-aligned">
     <fieldset class="pure-control-group">
@@ -72,5 +73,4 @@
       <button type="submit" class="pure-button pure-button-primary">View</button>
   </form>
 
-  </script>
 </html>

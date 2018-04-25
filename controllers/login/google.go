@@ -13,7 +13,7 @@ import (
 
 	"github.com/andreweggleston/GoSeniorAssassin/config"
 	"time"
-	"github.com/Sirupsen/logrus"
+	"github.com/sirupsen/logrus"
 	"encoding/json"
 	"github.com/andreweggleston/GoSeniorAssassin/models/player"
 	"strings"
@@ -27,24 +27,22 @@ type Credentials struct {
 }
 
 type User struct {
-	Sub string `json:"sub"`
-	Name string `json:"name"`
-	GivenName string `json:"given_name"`
-	FamilyName string `json:"family_name"`
-	Profile string `json:"profile"`
-	Picture string `json:"picture"`
-	Email string `json:"email"`
-	EmailVerified bool `json:"email_verified"`
-	Gender string `json:"gender"`
+	Sub           string `json:"sub"`
+	Name          string `json:"name"`
+	GivenName     string `json:"given_name"`
+	FamilyName    string `json:"family_name"`
+	Profile       string `json:"profile"`
+	Picture       string `json:"picture"`
+	Email         string `json:"email"`
+	EmailVerified bool   `json:"email_verified"`
+	Gender        string `json:"gender"`
 }
-
-
 
 var (
 	conf = &oauth2.Config{
 		ClientID:     "812567846854-k544u30oiihu7uaqo8b8gs8iup50od14.apps.googleusercontent.com",
 		ClientSecret: "i7j027VP4RJLYBiE1jALdSo9",
-		RedirectURL:  "http://localhost:8081/auth",
+		RedirectURL:  "http://10.0.0.5.nip.io:8081/auth",
 		Scopes: []string{
 			"https://www.googleapis.com/auth/userinfo.email",
 		},
@@ -52,17 +50,14 @@ var (
 	}
 
 	oauthStateString = "randomstate"
-	cred Credentials
+	cred             Credentials
 )
-
-
 
 func randToken() string {
 	b := make([]byte, 32)
 	rand.Read(b)
 	return base64.StdEncoding.EncodeToString(b)
 }
-
 
 func getLoginURL(state string) string {
 	return conf.AuthCodeURL(state)
@@ -74,7 +69,7 @@ func GoogleLoginHandler(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, url, http.StatusTemporaryRedirect)
 }
 
-func GoogleAuthHandler(w http.ResponseWriter, r * http.Request) {
+func GoogleAuthHandler(w http.ResponseWriter, r *http.Request) {
 	// Handle the exchange code to initiate a transport.
 	retrievedState := r.FormValue("state")
 	if retrievedState != oauthStateString {
@@ -115,7 +110,7 @@ func GoogleAuthHandler(w http.ResponseWriter, r * http.Request) {
 	if !strings.Contains(user.Email, "@student.wayland.k12.ma.us") {
 		http.Error(w, "Sign up with your school account!", http.StatusForbidden)
 		http.Redirect(w, r, "/", http.StatusForbidden)
-	}else {
+	} else {
 		p, err := player.GetPlayerByStudentID(studentid)
 		if err != nil {
 
@@ -134,11 +129,6 @@ func GoogleAuthHandler(w http.ResponseWriter, r * http.Request) {
 			database.DB.Create(p)
 		}
 
-		go func() {
-			if time.Since(p.ProfileUpdatedAt) >= 1 * time.Hour {
-				p.UpdatePlayerInfo()
-			}
-		}()
 
 		key := controllerhelpers.NewToken(p)
 		cookie := &http.Cookie{

@@ -8,7 +8,7 @@ import (
 	"github.com/jinzhu/gorm"
 	"net/http"
 	"fmt"
-	"github.com/Sirupsen/logrus"
+	"github.com/sirupsen/logrus"
 	"strconv"
 	"time"
 	"github.com/andreweggleston/GoSeniorAssassin/models/chat"

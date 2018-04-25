@@ -5,7 +5,7 @@ import (
 	"net"
 	"testing"
 	"encoding/json"
-	"github.com/Sirupsen/logrus"
+	"github.com/sirupsen/logrus"
 	"time"
 	"net/http/cookiejar"
 	"net/url"

@@ -5,13 +5,12 @@ import (
 	"time"
 	"net/http"
 	"github.com/andreweggleston/GoSeniorAssassin/config"
-	"github.com/Sirupsen/logrus"
+	"github.com/sirupsen/logrus"
 	"encoding/xml"
 	"github.com/andreweggleston/GoSeniorAssassin/helpers/authority"
 	"github.com/TF2Stadium/wsevent"
 	"github.com/andreweggleston/GoSeniorAssassin/models/player"
 	"errors"
-	"strconv"
 	"github.com/dgrijalva/jwt-go"
 )
 
@@ -79,10 +78,8 @@ func FilterHTTPRequest(action authority.AuthAction, f func(http.ResponseWriter, 
 			return
 		}
 
-		claims:=token.Claims.(jwt.MapClaims)
-		role, _ := strconv.Atoi(claims["role"].(string))
 
-		if !(authority.AuthRole(role).Can(action)) {
+		if !(token.Claims.(*AssassinClaims).Role.Can(action)) {
 			http.Error(w, "Not authorized", 403)
 			return
 		}

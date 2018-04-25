@@ -2,11 +2,10 @@ package controllerhelpers
 
 import (
 	"github.com/andreweggleston/GoSeniorAssassin/config"
-	"github.com/Sirupsen/logrus"
+	"github.com/sirupsen/logrus"
 	"encoding/base64"
 	"github.com/andreweggleston/GoSeniorAssassin/models/player"
 	"github.com/dgrijalva/jwt-go"
-	"strconv"
 	"time"
 	"fmt"
 	"net/http"
@@ -32,12 +31,14 @@ func init() {
 
 func NewToken(player *player.Player) string {
 	token := jwt.New(jwt.SigningMethodHS512)
-	claims := make(jwt.MapClaims)
-	claims["player_id"] = strconv.FormatUint(uint64(player.ID), 10)
-	claims["role"] = strconv.Itoa(int(player.Role))
-	claims["iat"] = time.Now().Unix()
-	claims["iss"] = config.Constants.PublicAddress
-	token.Claims = claims
+	token.Claims = AssassinClaims{
+		PlayerID:  		player.ID,
+		StudentID:		player.StudentID,
+		Role: 			player.Role,
+		IssuedAt: 		time.Now().Unix(),
+		Issuer: 		config.Constants.PublicAddress,
+
+	}
 
 	str, err := token.SignedString([]byte(signingKey))
 	if err != nil {
@@ -61,13 +62,12 @@ func GetToken(r *http.Request) (*jwt.Token, error) {
 		return nil, err
 	}
 
-	token, err := jwt.Parse(cookie.Value, verifyToken)
+	token, err := jwt.ParseWithClaims(cookie.Value, &AssassinClaims{},verifyToken)
 	return token, err
 }
 
 func GetPlayer(token *jwt.Token) *player.Player {
-	claims:=token.Claims.(jwt.MapClaims)
-	playerid, _ := strconv.ParseUint(claims["player_id"].(string), 10, 32)
-	player, _ := player.GetPlayerByID(uint(playerid))
+
+	player, _ := player.GetPlayerByID(token.Claims.(*AssassinClaims).PlayerID)
 	return player
 }

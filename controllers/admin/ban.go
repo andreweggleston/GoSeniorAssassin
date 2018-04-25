@@ -9,7 +9,7 @@ import (
 	"github.com/andreweggleston/GoSeniorAssassin/config"
 	"github.com/andreweggleston/GoSeniorAssassin/models/player"
 	chelpers "github.com/andreweggleston/GoSeniorAssassin/controllers/controllerhelpers"
-	"github.com/Sirupsen/logrus"
+	"github.com/sirupsen/logrus"
 )
 
 var banlogsTempl *template.Template

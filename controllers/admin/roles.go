@@ -8,6 +8,7 @@ import (
 	"github.com/andreweggleston/GoSeniorAssassin/helpers/authority"
 	"github.com/andreweggleston/GoSeniorAssassin/helpers"
 	"github.com/andreweggleston/GoSeniorAssassin/models/player"
+	"github.com/sirupsen/logrus"
 )
 
 func ChangeRole(w http.ResponseWriter, r *http.Request) {
@@ -18,7 +19,7 @@ func ChangeRole(w http.ResponseWriter, r *http.Request) {
 	}
 
 	values := r.Form
-	studentid := values.Get("studentid")
+	studentid := values.Get("id")
 	remove := values.Get("remove")
 	token := values.Get("xsrf-token")
 	if !xsrftoken.Valid(token, config.Constants.CookieStoreSecret, "admin", "POST") {
@@ -34,6 +35,8 @@ func ChangeRole(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "invalid role", http.StatusBadRequest)
 		return
 	}
+
+	logrus.Debug("adding ", studentid, "as ", role)
 
 	player, err := player.GetPlayerByStudentID(studentid)
 	if err != nil {

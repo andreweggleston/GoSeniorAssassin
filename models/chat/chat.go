@@ -55,7 +55,7 @@ type minPlayer struct {
 	Tags    []string `json:"tags"`
 }
 
-var bot = minPlayer{"AssassinBot", "assassin_bot", []string{"tf2stadium"}}
+var bot = minPlayer{"AssassinBot", "assassin_bot", []string{"seniorassassin"}}
 
 func (m *ChatMessage) MarshalJSON() ([]byte, error) {
 	message := map[string]interface{}{

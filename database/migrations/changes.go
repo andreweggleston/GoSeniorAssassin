@@ -1,7 +1,7 @@
 package migrations
 
 import (
-	"github.com/Sirupsen/logrus"
+	"github.com/sirupsen/logrus"
 	"github.com/blang/semver"
 	db "github.com/andreweggleston/GoSeniorAssassin/database"
 )

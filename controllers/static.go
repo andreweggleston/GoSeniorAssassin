@@ -9,7 +9,7 @@ import (
 	"github.com/andreweggleston/GoSeniorAssassin/internal/version"
 	"fmt"
 	"runtime"
-	"github.com/Sirupsen/logrus"
+	"github.com/sirupsen/logrus"
 )
 
 var (

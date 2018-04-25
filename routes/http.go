@@ -11,7 +11,6 @@ import (
 )
 
 
-//TODO: CREATE A MOCK LOGIN THAT DOESNT USE STEAM
 type route struct {
 	pattern string
 	handler http.HandlerFunc
@@ -28,7 +27,9 @@ var httpRoutes = []route{
 
 	{"/admin", chelpers.FilterHTTPRequest(helpers.ActionViewPage, admin.ServeAdminPage)},
 	{"/admin/roles", chelpers.FilterHTTPRequest(helpers.ActionViewPage, admin.ChangeRole)},
-	{"/admin/ban", chelpers.FilterHTTPRequest(helpers.ActionViewPage, admin.BanPlayer)},
+	{"/admin/updateannouncement", chelpers.FilterHTTPRequest(helpers.ActionViewPage, admin.UpdateAnnouncement)},
+	{"/admin/updatesafety", chelpers.FilterHTTPRequest(helpers.ActionViewPage, admin.UpdateSafetyItem)},
+	{"/admin/updatekilldate", chelpers.FilterHTTPRequest(helpers.ActionViewPage, admin.UpdateKillByDate)},
 	{"/admin/chatlogs", chelpers.FilterHTTPRequest(helpers.ActionViewLogs, admin.GetChatLogs)},
 	{"/admin/banlogs", chelpers.FilterHTTPRequest(helpers.ActionViewLogs, admin.GetBanLogs)},
 }

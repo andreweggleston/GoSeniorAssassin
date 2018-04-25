@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 	"crypto/rand"
-	"github.com/Sirupsen/logrus"
+	"github.com/sirupsen/logrus"
 	"encoding/base64"
 	"fmt"
 	"github.com/andreweggleston/GoSeniorAssassin/config"

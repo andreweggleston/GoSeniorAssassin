@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"text/template"
 
-	"github.com/Sirupsen/logrus"
+	"github.com/sirupsen/logrus"
 	"github.com/kelseyhightower/envconfig"
 )
 
@@ -23,7 +23,9 @@ type constants struct {
 	//OpenIDRealm       string   `envconfig:"SERVER_OPENID_REALM" default:"0.0.0.0:8081" doc:"The OpenID Realm (See: [Section 9.2 of the OpenID Spec](https://openid.net/specs/openid-authentication-2_0-12.html#realms))"`
 	AllowedOrigins    []string `envconfig:"ALLOWED_ORIGINS" default:"*"`
 
-	LoginRedirectPath string   `envconfig:"SERVER_REDIRECT_PATH" default:"/" doc:"URL to redirect user to after a successful login"`
+	AdminStudentIDs	string	`envconfig:"ADMIN_STUDENT_IDS" default:"Andrew_Eggleston" doc:"Separated by commas and no spaces e.x. \"Andrew_Eggleston,Nick_Fay\""`
+
+	LoginRedirectPath string   `envconfig:"SERVER_REDIRECT_PATH" default:"http://10.0.0.5.nip.io:8080/" doc:"URL to redirect user to after a successful login"`
 	//TODO: not :8081, make :8080 after frontend works
 
 	RabbitMQURL     string  `envconfig:"RABBITMQ_URL" default:"amqp://guest:guest@localhost:5672/" doc:"URL for AMQP server"`
@@ -50,7 +52,7 @@ type constants struct {
 var Constants = constants{}
 
 func init() {
-	err:= envconfig.Process("HELEN", &Constants)
+	err:= envconfig.Process("PARM", &Constants)
 	if err != nil {
 		logrus.Fatal(err)
 	}

@@ -4,7 +4,7 @@ import (
 	"html/template"
 	"net/http"
 	"golang.org/x/net/xsrftoken"
-	"github.com/Sirupsen/logrus"
+	"github.com/sirupsen/logrus"
 	"github.com/andreweggleston/GoSeniorAssassin/config"
 )
 
