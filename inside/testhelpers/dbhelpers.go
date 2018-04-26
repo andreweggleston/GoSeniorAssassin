@@ -4,8 +4,8 @@ import (
 	"os"
 	"sync"
 	"github.com/andreweggleston/GoSeniorAssassin/config"
-	"github.com/andreweggleston/GoSeniorAssassin/database"
-	"github.com/andreweggleston/GoSeniorAssassin/database/migrations"
+	"github.com/andreweggleston/GoSeniorAssassin/databaseAssassin"
+	"github.com/andreweggleston/GoSeniorAssassin/databaseAssassin/migrations"
 )
 
 var cleaningMutex sync.Mutex
@@ -30,7 +30,7 @@ func CleanupDB() {
 			config.Constants.DbPassword = "assassinpass"
 		}
 
-		database.Init()
+		databaseAssassin.Init()
 		migrations.Do()
 	})
 
@@ -42,7 +42,7 @@ func CleanupDB() {
 		"reports",
 	}
 	for _, table := range tables {
-		database.DB.Exec("TRUNCATE TABLE " + table + " RESTART IDENTITY")
+		databaseAssassin.DB.Exec("TRUNCATE TABLE " + table + " RESTART IDENTITY")
 	}
 
 }

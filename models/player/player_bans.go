@@ -3,7 +3,7 @@ package player
 import (
 	"github.com/jinzhu/gorm"
 	"time"
-	db "github.com/andreweggleston/GoSeniorAssassin/database"
+	db "github.com/andreweggleston/GoSeniorAssassin/databaseAssassin"
 )
 
 type BanType int

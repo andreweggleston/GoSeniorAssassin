@@ -2,7 +2,7 @@ package handler
 
 import (
 	chelpers "github.com/andreweggleston/GoSeniorAssassin/controllers/controllerhelpers"
-	db "github.com/andreweggleston/GoSeniorAssassin/database"
+	db "github.com/andreweggleston/GoSeniorAssassin/databaseAssassin"
 	"github.com/TF2Stadium/wsevent"
 	"fmt"
 	"time"

@@ -1,7 +1,7 @@
 package controllerhelpers
 
 import (
-	db "github.com/andreweggleston/GoSeniorAssassin/database"
+	db "github.com/andreweggleston/GoSeniorAssassin/databaseAssassin"
 	"github.com/andreweggleston/GoSeniorAssassin/helpers/authority"
 	"github.com/andreweggleston/GoSeniorAssassin/models/player"
 )

@@ -4,7 +4,7 @@ import (
 	"errors"
 	"time"
 	"github.com/jinzhu/gorm/dialects/postgres"
-	db "github.com/andreweggleston/GoSeniorAssassin/database"
+	db "github.com/andreweggleston/GoSeniorAssassin/databaseAssassin"
 	"github.com/andreweggleston/GoSeniorAssassin/helpers/authority"
 	"github.com/andreweggleston/GoSeniorAssassin/config"
 	"strings"

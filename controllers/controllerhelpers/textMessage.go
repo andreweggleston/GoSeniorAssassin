@@ -2,7 +2,7 @@ package controllerhelpers
 
 import (
 	"github.com/sfreiberg/gotwilio"
-	"github.com/andreweggleston/GoSeniorAssassin/database"
+	"github.com/andreweggleston/GoSeniorAssassin/databaseAssassin"
 	"github.com/andreweggleston/GoSeniorAssassin/models/player"
 )
 
@@ -17,12 +17,12 @@ var (
 
 func SendGlobalMessage(message string) {
 
-	playerlist, _ := database.DB.Not("phone_number", "").Find(&playerArray).Rows()
+	playerlist, _ := databaseAssassin.DB.Not("phone_number", "").Find(&playerArray).Rows()
 
 	defer playerlist.Close()
 	for playerlist.Next() {
 		var player player.Player
-		database.DB.ScanRows(playerlist, &player)
+		databaseAssassin.DB.ScanRows(playerlist, &player)
 
 		twilio.SendSMS(from, "+1"+player.PhoneNumber, message, "", "")
 	}

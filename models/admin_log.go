@@ -2,7 +2,7 @@ package models
 
 import (
 	"github.com/jinzhu/gorm"
-	"github.com/andreweggleston/GoSeniorAssassin/database"
+	"github.com/andreweggleston/GoSeniorAssassin/databaseAssassin"
 	"github.com/andreweggleston/GoSeniorAssassin/helpers/authority"
 	"github.com/andreweggleston/GoSeniorAssassin/helpers"
 )
@@ -21,7 +21,7 @@ func LogCustomAdminAction(playerid uint, reltext string, relid uint) error {
 		RelText:  reltext,
 	}
 
-	return database.DB.Create(&entry).Error
+	return databaseAssassin.DB.Create(&entry).Error
 }
 
 func LogAdminAction(playerid uint, permission authority.AuthAction, relid uint) error {

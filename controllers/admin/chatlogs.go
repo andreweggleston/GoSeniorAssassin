@@ -3,7 +3,7 @@ package admin
 import (
 	"regexp"
 	"html/template"
-	db "github.com/andreweggleston/GoSeniorAssassin/database"
+	db "github.com/andreweggleston/GoSeniorAssassin/databaseAssassin"
 	"github.com/andreweggleston/GoSeniorAssassin/models/player"
 	"github.com/jinzhu/gorm"
 	"net/http"

@@ -5,7 +5,7 @@ import (
 	"testing"
 	"strconv"
 	"github.com/stretchr/testify/assert"
-	db "github.com/andreweggleston/GoSeniorAssassin/database"
+	db "github.com/andreweggleston/GoSeniorAssassin/databaseAssassin"
 )
 
 func init() {

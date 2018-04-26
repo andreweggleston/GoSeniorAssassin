@@ -2,7 +2,7 @@ package migrations
 
 import (
 	"github.com/sirupsen/logrus"
-	db "github.com/andreweggleston/GoSeniorAssassin/database"
+	db "github.com/andreweggleston/GoSeniorAssassin/databaseAssassin"
 	"github.com/andreweggleston/GoSeniorAssassin/models/player"
 )
 

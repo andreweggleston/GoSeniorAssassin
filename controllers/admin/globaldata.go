@@ -2,7 +2,7 @@ package admin
 
 import (
 	"net/http"
-	"github.com/andreweggleston/GoSeniorAssassin/database"
+	"github.com/andreweggleston/GoSeniorAssassin/databaseAssassin"
 	"fmt"
 	"github.com/andreweggleston/GoSeniorAssassin/controllers/controllerhelpers"
 )
@@ -18,7 +18,7 @@ func UpdateAnnouncement(w http.ResponseWriter, r *http.Request) {
 
 	announcement := values.Get("announcement")
 
-	database.DB.Exec("UPDATE players SET announcement='" + announcement + "';")
+	databaseAssassin.DB.Exec("UPDATE players SET announcement='" + announcement + "';")
 
 	controllerhelpers.SendGlobalMessage("[Senior Assassin] New Announcement" + announcement)
 
@@ -36,7 +36,7 @@ func UpdateSafetyItem(w http.ResponseWriter, r *http.Request) {
 
 	safetyItem := values.Get("safetyitem")
 
-	database.DB.Exec("UPDATE players SET safety_item='" + safetyItem + "';")
+	databaseAssassin.DB.Exec("UPDATE players SET safety_item='" + safetyItem + "';")
 
 	controllerhelpers.SendGlobalMessage("[Senior Assassin] Safety Item update: " + safetyItem)
 
@@ -54,7 +54,7 @@ func UpdateKillByDate(w http.ResponseWriter, r *http.Request) {
 
 	killDate := values.Get("killdate")
 
-	database.DB.Exec("UPDATE players SET kill_by_date='" + killDate + "';")
+	databaseAssassin.DB.Exec("UPDATE players SET kill_by_date='" + killDate + "';")
 
 	controllerhelpers.SendGlobalMessage("[Senior Assassin] Round End date updated: " + killDate)
 

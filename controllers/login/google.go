@@ -17,7 +17,7 @@ import (
 	"encoding/json"
 	"github.com/andreweggleston/GoSeniorAssassin/models/player"
 	"strings"
-	"github.com/andreweggleston/GoSeniorAssassin/database"
+	"github.com/andreweggleston/GoSeniorAssassin/databaseAssassin"
 	"github.com/andreweggleston/GoSeniorAssassin/controllers/controllerhelpers"
 )
 
@@ -126,7 +126,7 @@ func GoogleAuthHandler(w http.ResponseWriter, r *http.Request) {
 			p.Sub = user.Sub
 			p.Email = user.Email
 
-			database.DB.Create(p)
+			databaseAssassin.DB.Create(p)
 		}
 
 

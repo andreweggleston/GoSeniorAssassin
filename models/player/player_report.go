@@ -2,7 +2,7 @@ package player
 
 import (
 	"time"
-	db "github.com/andreweggleston/GoSeniorAssassin/database"
+	db "github.com/andreweggleston/GoSeniorAssassin/databaseAssassin"
 )
 
 type Report struct {

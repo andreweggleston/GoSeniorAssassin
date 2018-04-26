@@ -3,7 +3,7 @@ package migrations
 import (
 	"github.com/sirupsen/logrus"
 	"github.com/blang/semver"
-	db "github.com/andreweggleston/GoSeniorAssassin/database"
+	db "github.com/andreweggleston/GoSeniorAssassin/databaseAssassin"
 )
 
 var schemaVersion = semver.Version{
@@ -43,7 +43,7 @@ func checkSchema() {
 		db.DB.Save(&Constant{
 			schemaVersion.String(),
 		})
-		//Initial database migration
+		//Initial databaseAssassin migration
 		//Write current schema version
 		return
 	}

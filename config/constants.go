@@ -32,9 +32,9 @@ type constants struct {
 	RabbitMQQueue     string   `envconfig:"RABBITMQ_QUEUE" default:"events" doc:"Name of queue over which events are sent"`
 
 
-	DbAddr		string	`envconfig:"DATABASE_ADDR" default:"127.0.0.1:5432" doc:"Database Address"`
+	DbAddr		string	`envconfig:"DATABASE_ADDR" default:"seniorassassin.caeprqfnq40y.us-east-2.rds.amazonaws.com:5432" doc:"Database Address"`
 	DbDatabase	string 	`envconfig:"DATABASE_NAME" default:"seniorassassin" doc:"Database Name"`
-	DbUsername	string 	`envconfig:"DATABASE_USERNAME" default:"seniorassassin" doc:"Database Username"`
+	DbUsername	string 	`envconfig:"DATABASE_USERNAME" default:"SeniorAssassin" doc:"Database Username"`
 	DbPassword 	string 	`envconfig:"DATABASE_PASSWORD" default:"assassinpass" doc:"Database password"`
 
 	CookieStoreSecret string   `envconfig:"COOKIE_STORE_SECRET" default:"secret" doc:"base64 encoded key to use for encrypting cookies"`

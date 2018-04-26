@@ -10,8 +10,8 @@ import (
 	"os"
 	"github.com/andreweggleston/GoSeniorAssassin/inside/version"
 	"github.com/andreweggleston/GoSeniorAssassin/controllers"
-	"github.com/andreweggleston/GoSeniorAssassin/database"
-	"github.com/andreweggleston/GoSeniorAssassin/database/migrations"
+	"github.com/andreweggleston/GoSeniorAssassin/databaseAssassin"
+	"github.com/andreweggleston/GoSeniorAssassin/databaseAssassin/migrations"
 	"github.com/andreweggleston/GoSeniorAssassin/helpers"
 	chelpers "github.com/andreweggleston/GoSeniorAssassin/controllers/controllerhelpers"
 	"net/http"
@@ -20,14 +20,14 @@ import (
 	"github.com/andreweggleston/GoSeniorAssassin/controllers/socket"
 	"github.com/rs/cors"
 	"os/signal"
-	"syscall"
 	"github.com/andreweggleston/GoSeniorAssassin/models/chat"
+	"syscall"
 )
 
 var (
 	flagGen = flag.Bool("genkey", false, "write a 32bit key for encrypting cookies the given file, and exit")
 	docPrint = flag.Bool("printdoc", false, "print the docs for environment variables, and exit.")
-	dbMaxopen = flag.Int("db-maxopen", 80, "maximum number of open database connections allowed.")
+	dbMaxopen = flag.Int("db-maxopen", 80, "maximum number of open databaseAssassin connections allowed.")
 )
 
 func main() {
@@ -55,8 +55,8 @@ func main() {
 
 	controllers.InitTemplates()
 
-	database.Init()
-	database.DB.DB().SetMaxOpenConns(*dbMaxopen)
+	databaseAssassin.Init()
+	databaseAssassin.DB.DB().SetMaxOpenConns(*dbMaxopen)
 	migrations.Do()
 
 	if config.Constants.IDWhitelist != "" {
@@ -74,7 +74,9 @@ func main() {
 	}).Handler(httpMux)
 
 	sig := make(chan os.Signal, 1)
+
 	signal.Notify(sig, os.Interrupt, os.Kill, syscall.SIGTERM, syscall.SIGKILL)
+
 	go func() {
 		<-sig
 		shutdown()

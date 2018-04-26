@@ -6,7 +6,7 @@ import (
 
 	"encoding/json"
 	"github.com/andreweggleston/GoSeniorAssassin/controllers/broadcaster"
-	db "github.com/andreweggleston/GoSeniorAssassin/database"
+	db "github.com/andreweggleston/GoSeniorAssassin/databaseAssassin"
 	"github.com/andreweggleston/GoSeniorAssassin/models/player"
 )
 
